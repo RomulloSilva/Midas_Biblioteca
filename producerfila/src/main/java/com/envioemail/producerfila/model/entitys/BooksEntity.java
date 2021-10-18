@@ -1,10 +1,7 @@
 package com.envioemail.producerfila.model.entitys;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "books")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

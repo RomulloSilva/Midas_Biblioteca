@@ -1,15 +1,13 @@
 package com.envioemail.producerfila.model.entitys;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "authors")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

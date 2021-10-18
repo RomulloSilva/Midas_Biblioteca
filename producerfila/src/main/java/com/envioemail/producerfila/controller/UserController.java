@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.util.Objects.nonNull;
+
 @RestController
 @RequestMapping("/midasBiblioteca")
 public class UserController {
@@ -23,9 +25,11 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UsersEntity> getUserById(@PathVariable("id") Integer userId) {
         UsersEntity usersEntity;
-
         usersEntity = userService.getUserById(userId);
-
-        return ResponseEntity.ok(usersEntity);
+        if (nonNull(usersEntity)) {
+            return ResponseEntity.ok(usersEntity);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }
