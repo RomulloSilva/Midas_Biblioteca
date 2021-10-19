@@ -15,6 +15,9 @@
     <description>Produzir e-mails e enviar para a fila SQS</description>
     <properties>
         <java.version>11</java.version>
+        <sonar.coverage.exclusions>
+            **/com.envioemail.producerfila.config/**
+        </sonar.coverage.exclusions>
     </properties>
     <dependencies>
         <dependency>

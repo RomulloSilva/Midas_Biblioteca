@@ -1,6 +1,7 @@
 package com.envioemail.producerfila.service;
 
 import com.envioemail.producerfila.domain.interfaces.AuthorsValidations;
+import com.envioemail.producerfila.model.dto.Author;
 import com.envioemail.producerfila.model.entitys.AuthorsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class AuthorService {
 
     public AuthorsEntity getAuthorById(Integer authorId) {
         return authorsValidations.execute(authorId);
+    }
+
+    public Boolean insertAuthor(Author author) {
+        return authorsValidations.insertAuthor(author);
     }
 
 
