@@ -1,6 +1,7 @@
 package com.envioemail.producerfila.service;
 
 import com.envioemail.producerfila.domain.interfaces.UsersValidations;
+import com.envioemail.producerfila.model.dto.User;
 import com.envioemail.producerfila.model.entitys.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class UserService {
 
     public UsersEntity getUserById(Integer userId) {
         return usersValidations.execute(userId);
+    }
+
+    public Boolean InsertNewUser(User user) {
+        return usersValidations.insertUser(user);
     }
 
 }
