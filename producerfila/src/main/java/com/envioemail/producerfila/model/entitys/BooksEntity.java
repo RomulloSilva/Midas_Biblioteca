@@ -1,10 +1,12 @@
 package com.envioemail.producerfila.model.entitys;
 
 
+import com.envioemail.producerfila.model.dto.Book;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +38,7 @@ public class BooksEntity implements Serializable {
     private Integer authorId;
 
     @Column(name = "release_date", nullable = false)
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
 
     @Column(name = "volume", nullable = false)
     private Integer volume;
@@ -52,4 +54,18 @@ public class BooksEntity implements Serializable {
 
     @Column(name = "publishing_company", nullable = false)
     private String publishingCompany;
+
+    public static BooksEntity of(Book book) {
+        return BooksEntity.builder()
+                .bookTitle(book.getBookTitle())
+                .summary(book.getSummary())
+                .authorName(book.getAuthorName())
+                .authorId(book.getAuthorId())
+                .releaseDate(book.getReleaseDate())
+                .volume(book.getVolume())
+                .isbn(book.getIsbn())
+                .numberOfPages(book.getNumberOfPages())
+                .country(book.getCountry())
+                .publishingCompany(book.getPublishingCompany()).build();
+    }
 }

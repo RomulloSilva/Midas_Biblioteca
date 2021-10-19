@@ -4,8 +4,6 @@ package com.envioemail.producerfila.exception;
 import com.envioemail.producerfila.config.model.FieldErroMessageModel;
 import com.envioemail.producerfila.config.model.MessageErroModel;
 import com.envioemail.producerfila.config.model.constant.ResponseExceptionHandler;
-import com.envioemail.producerfila.exception.model.FieldErroResource;
-import com.envioemail.producerfila.exception.model.ErroResouce;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.MessageSourceResolvable;
@@ -69,8 +67,8 @@ public class CustomizeExceptionsHandler extends ResponseEntityExceptionHandler i
             fields.add(fieldErroMessageModel);
         }
         MessageErroModel invalidRequest = new MessageErroModel();
-        invalidRequest.setCode(ResponseExceptionHandler.VALIDATION_ERROR.getTextoException());
-        invalidRequest.setMessage(ResponseExceptionHandler.ERRO_NA_VALIDACAO_DE_CAMPOS.getTextoException());
+        invalidRequest.setCode(ResponseExceptionHandler.VALIDATION_ERROR.getTextException());
+        invalidRequest.setMessage(ResponseExceptionHandler.ERRO_VALIDATION_FIELDS.getTextException());
         invalidRequest.setFields(fields);
 
         return new ResponseEntity<>(invalidRequest, BAD_REQUEST);

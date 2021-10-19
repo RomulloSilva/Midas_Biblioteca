@@ -3,19 +3,19 @@ package com.envioemail.producerfila.config.model.constant;
 public enum ResponseExceptionHandler {
 
 
-    ERRO_NA_VALIDACAO_DE_CAMPOS("Erro na validacao de campos"),
+    ERRO_VALIDATION_FIELDS("Error in field validation"),
     VALIDATION_ERROR("validation_error"),
-    SERVICO_INDISPONIVEL("Servico Indisponivel"),
-    RECURSO_INEXISTENTE("Recurso Inexistente"),
-    ERRO_INESPERADO("Erro Inesperado");
+    UNAVAILABLE_SERVICE("Unavailable service"),
+    RESOURCE_NON_EXISTENT("Non-existent resource"),
+    ERROR_UNEXPECTED("Unexpected error");
 
-    private String textoException;
+    private String textException;
 
-    private ResponseExceptionHandler(String textoException) {
-        this.textoException = textoException;
+    private ResponseExceptionHandler(String textException) {
+        this.textException = textException;
     }
 
-    public String getTextoException() {
-        return this.textoException;
+    public String getTextException() {
+        return this.textException;
     }
 }
