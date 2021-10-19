@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "book_properties")
@@ -37,6 +38,6 @@ public class BookPropertiesEntity implements Serializable {
     private Integer quantityAvailableForLoan;
 
     @Column(name = "available_on_date", nullable = false)
-    private Integer availableOnDate;
+    private LocalDateTime availableOnDate;
 
 }

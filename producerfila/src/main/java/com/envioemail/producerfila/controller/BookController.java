@@ -1,5 +1,6 @@
 package com.envioemail.producerfila.controller;
 
+import com.envioemail.producerfila.model.entitys.BookPropertiesEntity;
 import com.envioemail.producerfila.model.entitys.BooksEntity;
 import com.envioemail.producerfila.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,16 @@ public class BookController {
         } else {
             return ResponseEntity.noContent().build();
         }
+    }
 
+    @GetMapping("/book/{id}/properties")
+    public ResponseEntity<BookPropertiesEntity> getProperties(@PathVariable("id") Integer bookId) {
+        BookPropertiesEntity bookPropertiesEntity;
+        bookPropertiesEntity = bookService.getPropertiesById(bookId);
+        if (nonNull(bookPropertiesEntity)) {
+            return ResponseEntity.ok(bookPropertiesEntity);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }

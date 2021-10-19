@@ -15,7 +15,7 @@ public interface BookPropertiesRepository extends JpaRepository<BookPropertiesEn
             "P.borrowed_quantity, " +
             "P.reserved_quantity, " +
             "P.quantity_available_for_loan, " +
-            "P.available_on_date, " +
+            "P.available_on_date " +
             "FROM book_properties P " +
             "WHERE P.book_id = :book_id", nativeQuery = true)
     BookPropertiesEntity getBookPropertiesById(@Param("book_id") Integer bookId);

@@ -21,7 +21,7 @@ public class BookPropertiesValidationsImpl implements BookPropertiesValidations 
 
     @Override
     public BookPropertiesEntity execute(Integer bookId) {
-        return null;
+        return getBookPropertiesByBookId(bookId);
     }
 
     public BookPropertiesEntity getBookPropertiesByBookId(Integer bookId) {
