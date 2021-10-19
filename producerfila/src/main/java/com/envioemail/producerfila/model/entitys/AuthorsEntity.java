@@ -1,5 +1,6 @@
 package com.envioemail.producerfila.model.entitys;
 
+import com.envioemail.producerfila.model.dto.Author;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,5 +27,12 @@ public class AuthorsEntity implements Serializable {
 
     @Column(name = "last_name", length = 50, nullable = false)
     private String authorLastName;
+
+    public static AuthorsEntity of(Author author) {
+        return AuthorsEntity.builder()
+                .authorFirstName(author.getAuthorFirstName())
+                .authorLastName(author.getAuthorLastName())
+                .build();
+    }
 
 }
