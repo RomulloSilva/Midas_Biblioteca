@@ -47,18 +47,16 @@ insert into authors(author_id,first_name,last_name) values (null, "Clarice", "Li
 --INSERT NA TABELA DE LIVROS
 insert into books(book_id,book_title,summary,author_name,author_id,release_date,volume,isbn,number_of_pages,country,publishing_company) values (null, "A Guerra Dos Tronos - As Crônicas De Gelo e Fogo","resumo", "George R. R. Martin", 1, "02-06-19", 1, 9788556510785, 900, "Brasil", "Suma De Letras");
 
---TABELA DE LIVROS
-CREATE TABLE books (
-    book_id INT PRIMARY KEY AUTO_INCREMENT,
-    book_title VARCHAR (50) NOT NULL,
-    summary VARCHAR(300) NOT NULL,
-    author_name VARCHAR (50) NOT NULL,
-    author_id INT NOT NULL,
-    release_date DATE NOT NULL,
-    volume INT NOT NULL,
-    isbn INT NOT NULL,
-    number_of_pages INT NOT NULL,
-    country VARCHAR(30) NOT NULL,
-    publishing_company  VARCHAR(50) NOT NULL,
-	FOREIGN KEY (author_id) REFERENCES authors (author_id)
+--TABELA DE PROPIEDADES DOS LIVROS
+CREATE TABLE book_properties (
+    book_id INT NOT NULL,
+	available_quantity INT NOT NULL,
+	rated_r CHAR(1),
+	borrowed_quantity INT NOT NULL,
+	reserved_quantity INT NOT NULL,
+	quantity_available_for_loan INT NOT NULL,
+	available_on_date DATETIME NOT NULL,
+	FOREIGN KEY (book_id) REFERENCES books (book_id)
 );
+--INSERT TABELA DE PROPIEDADES DOS LIVROS
+INSERT INTO book_properties(book_id,available_quantity,rated_r,borrowed_quantity,reserved_quantity,quantity_available_for_loan,available_on_date) VALUES (1,10,1,0,0,10,'18-10-21 10:34:09');

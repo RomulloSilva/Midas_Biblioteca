@@ -1,17 +1,17 @@
 package com.envioemail.producerfila.model.entitys;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.envioemail.producerfila.model.dto.Book;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "books")
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,33 +25,47 @@ public class BooksEntity implements Serializable {
     @Column(name = "book_id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "book_title", unique = true, nullable = false)
+    @Column(name = "book_title", nullable = false)
     private String bookTitle;
 
-    @Column(name = " summary", unique = true, nullable = false)
+    @Column(name = "summary", nullable = false)
     private String summary;
 
-    @Column(name = "author_name", unique = true, nullable = false)
+    @Column(name = "author_name", nullable = false)
     private String authorName;
 
-    @Column(name = "author_id", unique = true, nullable = false)
+    @Column(name = "author_id", nullable = false)
     private Integer authorId;
 
-    @Column(name = "release_date", unique = true, nullable = false)
-    private LocalDateTime releaseDate;
+    @Column(name = "release_date", nullable = false)
+    private LocalDate releaseDate;
 
-    @Column(name = "volume", unique = true, nullable = false)
+    @Column(name = "volume", nullable = false)
     private Integer volume;
 
     @Column(name = "isbn", unique = true, nullable = false)
     private Integer isbn;
 
-    @Column(name = "number_of_pages", unique = true, nullable = false)
+    @Column(name = "number_of_pages", nullable = false)
     private Integer numberOfPages;
 
-    @Column(name = "country", unique = true, nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "publishing_company", unique = true, nullable = false)
+    @Column(name = "publishing_company", nullable = false)
     private String publishingCompany;
+
+    public static BooksEntity of(Book book) {
+        return BooksEntity.builder()
+                .bookTitle(book.getBookTitle())
+                .summary(book.getSummary())
+                .authorName(book.getAuthorName())
+                .authorId(book.getAuthorId())
+                .releaseDate(book.getReleaseDate())
+                .volume(book.getVolume())
+                .isbn(book.getIsbn())
+                .numberOfPages(book.getNumberOfPages())
+                .country(book.getCountry())
+                .publishingCompany(book.getPublishingCompany()).build();
+    }
 }

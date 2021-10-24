@@ -2,9 +2,11 @@ package com.envioemail.producerfila.domain.impl;
 
 import com.envioemail.producerfila.domain.interfaces.BooksValidantions;
 import com.envioemail.producerfila.exception.BookException;
+import com.envioemail.producerfila.model.dto.Book;
 import com.envioemail.producerfila.model.entitys.BooksEntity;
 import com.envioemail.producerfila.repository.BooksRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.Objects.nonNull;
 
@@ -20,6 +22,18 @@ public class BooksValidantionsImpl implements BooksValidantions {
     @Override
     public BooksEntity execute(Integer bookId) {
         return getBookById(bookId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insertBook(Book book) {
+        try {
+            booksRepository.save(BooksEntity.of(book));
+            return true;
+        } catch (Exception exception) {
+            throw new BookException("Unable to save book" + exception);
+        }
+
     }
 
     public BooksEntity getBookById(Integer bookId) {

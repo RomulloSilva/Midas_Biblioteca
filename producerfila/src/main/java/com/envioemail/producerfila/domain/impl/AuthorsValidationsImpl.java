@@ -8,6 +8,7 @@ import com.envioemail.producerfila.repository.AuthorsRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.Objects.nonNull;
 
@@ -28,6 +29,19 @@ public class AuthorsValidationsImpl implements AuthorsValidations {
         return findById(authorID);
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insertAuthor(Author author) {
+        try {
+            authorsRepository.save(AuthorsEntity.of(author));
+            return true;
+        } catch (Exception exception) {
+            throw new AuthorException("Unable to save author: " + exception);
+        }
+
+
+    }
+
     public AuthorsEntity findById(Integer authorID) {
 
         AuthorsEntity author = new AuthorsEntity();
@@ -42,4 +56,7 @@ public class AuthorsValidationsImpl implements AuthorsValidations {
             throw new AuthorException("Falha na busca pelo Author: " + exception);
         }
     }
+//Integer changedLine;
+
+
 }
