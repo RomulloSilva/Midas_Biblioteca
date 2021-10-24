@@ -2,6 +2,7 @@ package com.envioemail.producerfila.model.dto;
 
 
 import com.envioemail.producerfila.config.validators.SafeTextValidator;
+import com.envioemail.producerfila.model.entitys.LoanEntity;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -37,4 +38,16 @@ public class Loan {
     @Max(1)
     @SafeTextValidator(message = "ActiveLoan xss script detected.")
     private String activeLoan;
+
+
+    public static Loan of(Integer userId, Integer bookId){
+        return Loan.builder()
+                .bookId(bookId)
+                .usersId(userId)
+                .dateOfLoans(LocalDateTime.now())
+                .expirationDate(LocalDateTime.now().plusDays(15))
+                .expiration("0")
+                .activeLoan("1")
+                .build();
+    }
 }

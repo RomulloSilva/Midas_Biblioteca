@@ -1,7 +1,9 @@
 package com.envioemail.producerfila.service;
 
 import com.envioemail.producerfila.domain.interfaces.LoanValidation;
+import com.envioemail.producerfila.exception.BookException;
 import com.envioemail.producerfila.exception.LoanException;
+import com.envioemail.producerfila.exception.UserException;
 import com.envioemail.producerfila.model.dto.Loan;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,7 @@ public class LoanValidationService {
             userActiveLoan(loan);
         } else {
             log.error(MSG_USER_WITH_EXPIRATION);
-            throw new LoanException(MSG_USER_WITH_EXPIRATION);
+            throw new UserException(MSG_USER_WITH_EXPIRATION);
         }
     }
 
@@ -63,7 +65,7 @@ public class LoanValidationService {
             bookValidation(loan);
         } else {
             log.error(MSG_USER_ACTIVE_LOAN);
-            throw new LoanException(MSG_USER_ACTIVE_LOAN);
+            throw new BookException(MSG_USER_ACTIVE_LOAN);
         }
     }
 
@@ -72,19 +74,10 @@ public class LoanValidationService {
             bookService.bookAvailable(loan.getBookId());
             loanService.confirmsTheLoan(loan);
             confirmLoan++;
+            log.info(MSG_SUCCESS);
         } catch (Exception exception) {
             log.error("Book Validation: " + exception);
-            throw new LoanException("Book Validation: " + exception);
+            throw new BookException("Book Validation: " + exception);
         }
     }
-
-    /*
-    public void loanValidation(Loan loan) {
-        try {
-            userValidation(loan);
-        } catch (Exception exception) {
-            throw new LoanException(exception.toString());
-        }
-    }
-     */
 }

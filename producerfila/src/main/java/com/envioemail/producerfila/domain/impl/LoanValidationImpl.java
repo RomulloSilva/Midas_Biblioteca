@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Log4j2
 @Component
 public class LoanValidationImpl implements LoanValidation {
 
     private static String MSG_FAILURE_INSERT = "Loan Insertion Failed: %s";
+    private static String MSG_FAILURE_FIND = "Loan Update Failed: %s";
+    private static String MSG_FAILURE_CLOSE = "Loan Close Failed: %s";
+    private static String MSG_FAILURE_FIND_ID = "Loan Find Id Failed: %s";
 
     private final LoanRepository loanRepository;
 
@@ -51,6 +55,33 @@ public class LoanValidationImpl implements LoanValidation {
         }
     }
 
+    @Override
+    public LoanEntity findLoan(Integer userId, Integer bookId) {
+        try {
+            return loanRepository.findLoan(userId, bookId).orElse(null);
+        } catch (Exception exception) {
+            throw new LoanException(String.format(MSG_FAILURE_FIND, exception));
+        }
+    }
+
+    @Override
+    public Integer findLoanId(Integer userId, Integer bookId) {
+        try {
+            return loanRepository.findLoanId(userId, bookId);
+        } catch (Exception exception) {
+            throw new LoanException(String.format(MSG_FAILURE_FIND_ID, exception));
+        }
+    }
+
+    @Override
+    public Boolean closeLoan(Integer loanId) {
+        try {
+            return loanRepository.closeLoan(loanId) == 1;
+        } catch (Exception exception) {
+            throw new LoanException(String.format(MSG_FAILURE_CLOSE, exception));
+        }
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     public Boolean insertNewLoan(Loan loan) {
@@ -62,4 +93,6 @@ public class LoanValidationImpl implements LoanValidation {
             throw new LoanException(String.format(MSG_FAILURE_INSERT, exception));
         }
     }
+
+
 }
