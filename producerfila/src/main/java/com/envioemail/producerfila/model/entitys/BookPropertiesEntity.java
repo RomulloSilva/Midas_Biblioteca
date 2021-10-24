@@ -1,6 +1,7 @@
 package com.envioemail.producerfila.model.entitys;
 
 
+import com.envioemail.producerfila.model.dto.BookProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,5 +40,16 @@ public class BookPropertiesEntity implements Serializable {
 
     @Column(name = "available_on_date", nullable = false)
     private LocalDateTime availableOnDate;
+
+    public static BookPropertiesEntity of(BookProperties bookProperties) {
+        return BookPropertiesEntity.builder()
+                .bookId(bookProperties.getBookId())
+                .availableQuantity(bookProperties.getAvailableQuantity())
+                .ratedr(bookProperties.getRatedr())
+                .borrowedQuantity(bookProperties.getBorrowedQuantity())
+                .reservedQuantity(bookProperties.getReservedQuantity())
+                .quantityAvailableForLoan(bookProperties.getQuantityAvailableForLoan())
+                .availableOnDate(bookProperties.getAvailableOnDate()).build();
+    }
 
 }

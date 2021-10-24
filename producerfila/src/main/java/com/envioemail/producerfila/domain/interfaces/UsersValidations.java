@@ -10,4 +10,5 @@ public interface UsersValidations {
     UsersEntity execute(Integer userId);
 
     Boolean insertUser(User user);
+
 }

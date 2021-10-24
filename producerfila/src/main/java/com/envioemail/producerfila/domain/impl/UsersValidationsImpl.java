@@ -38,6 +38,7 @@ public class UsersValidationsImpl implements UsersValidations {
         }
     }
 
+
     public UsersEntity getUserById(Integer userId) {
 
         UsersEntity usersEntity = new UsersEntity();

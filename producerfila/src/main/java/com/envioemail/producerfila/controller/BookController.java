@@ -1,6 +1,7 @@
 package com.envioemail.producerfila.controller;
 
 import com.envioemail.producerfila.model.dto.Book;
+import com.envioemail.producerfila.model.dto.BookProperties;
 import com.envioemail.producerfila.model.dto.adapter.Data;
 import com.envioemail.producerfila.model.entitys.BookPropertiesEntity;
 import com.envioemail.producerfila.model.entitys.BooksEntity;
@@ -38,6 +39,15 @@ public class BookController {
         }
     }
 
+    @PostMapping("/book")
+    public ResponseEntity<Object> insertBook(@RequestBody @Valid Book book) {
+        if (bookService.insertNewBook(book)) {
+            return ResponseEntity.ok(new Data<Book>(book));
+        }
+        return new ResponseEntity<>(MESSAGE_FAILURE_POST, HttpStatus.BAD_REQUEST);
+    }
+
+
     @GetMapping("/book/{id}/properties")
     public ResponseEntity<BookPropertiesEntity> getProperties(@PathVariable("id") Integer bookId) {
         BookPropertiesEntity bookPropertiesEntity;
@@ -49,10 +59,10 @@ public class BookController {
         }
     }
 
-    @PostMapping("/book")
-    public ResponseEntity<Object> insertBook(@RequestBody @Valid Book book) {
-        if (bookService.insertNewBook(book)) {
-            return ResponseEntity.ok(new Data<Book>(book));
+    @PostMapping("/book/properties")
+    public ResponseEntity<Object> insertBookProperties(@RequestBody @Valid BookProperties bookProperties) {
+        if (bookService.insertNewBookProperties(bookProperties)) {
+            return ResponseEntity.ok(new Data<BookProperties>(bookProperties));
         }
         return new ResponseEntity<>(MESSAGE_FAILURE_POST, HttpStatus.BAD_REQUEST);
     }

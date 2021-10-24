@@ -3,6 +3,7 @@ package com.envioemail.producerfila.exception;
 
 import com.envioemail.producerfila.config.model.FieldErroMessageModel;
 import com.envioemail.producerfila.config.model.MessageErroModel;
+import com.envioemail.producerfila.config.model.StandardError;
 import com.envioemail.producerfila.config.model.constant.ResponseExceptionHandler;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
@@ -15,10 +16,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +46,13 @@ public class CustomizeExceptionsHandler extends ResponseEntityExceptionHandler i
     protected final ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException methodArgumentNotValidException, HttpHeaders httpHeaders,
                                                                         HttpStatus httpStatus, WebRequest request) {
         return handlerFieldErros(methodArgumentNotValidException.getBindingResult());
+    }
+
+
+    @ExceptionHandler(LoanException.class)
+    public ResponseEntity<StandardError> loanExceptions(LoanException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
 
