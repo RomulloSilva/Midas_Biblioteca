@@ -2,12 +2,10 @@ package com.envioemail.producerfila.model.dto;
 
 
 import com.envioemail.producerfila.config.validators.SafeTextValidator;
-import com.envioemail.producerfila.model.entitys.LoanEntity;
 import lombok.*;
 
-import javax.persistence.Column;
+
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -16,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Loan {
+public class LoanDto {
 
 
     @NotNull(message = "BookId cannot be null")
@@ -40,8 +38,8 @@ public class Loan {
     private String activeLoan;
 
 
-    public static Loan of(Integer userId, Integer bookId){
-        return Loan.builder()
+    public static LoanDto of(Integer userId, Integer bookId) {
+        return LoanDto.builder()
                 .bookId(bookId)
                 .usersId(userId)
                 .dateOfLoans(LocalDateTime.now())

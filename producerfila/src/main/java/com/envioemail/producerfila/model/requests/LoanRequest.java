@@ -1,6 +1,6 @@
 package com.envioemail.producerfila.model.requests;
 
-import com.envioemail.producerfila.model.dto.Loan;
+import com.envioemail.producerfila.model.dto.LoanDto;
 import lombok.*;
 
 
@@ -15,5 +15,5 @@ import java.util.List;
 public class LoanRequest {
 
     @Valid
-    private List<Loan> loans;
+    private List<LoanDto> loanDtos;
 }

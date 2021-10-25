@@ -13,14 +13,14 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Pattern.Flag;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class UserDto implements Serializable {
 
 
     private static final long serialVersionUID = -3899156131829529619L;

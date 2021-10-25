@@ -2,7 +2,7 @@ package com.envioemail.producerfila.domain.impl;
 
 import com.envioemail.producerfila.domain.interfaces.UsersValidations;
 import com.envioemail.producerfila.exception.UserException;
-import com.envioemail.producerfila.model.dto.User;
+import com.envioemail.producerfila.model.dto.UserDto;
 import com.envioemail.producerfila.model.entitys.UsersEntity;
 import com.envioemail.producerfila.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ public class UsersValidationsImpl implements UsersValidations {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean insertUser(User user) {
+    public Boolean insertUser(UserDto userDto) {
         try {
-            usersRepository.save(UsersEntity.of(user));
+            usersRepository.save(UsersEntity.of(userDto));
             return true;
         } catch (Exception exception) {
             throw new UserException("Failed to save user: " + exception);

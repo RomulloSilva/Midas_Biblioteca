@@ -2,13 +2,17 @@ package com.envioemail.producerfila.domain.impl;
 
 import com.envioemail.producerfila.domain.interfaces.LoanValidation;
 import com.envioemail.producerfila.exception.LoanException;
-import com.envioemail.producerfila.model.dto.Loan;
+import com.envioemail.producerfila.model.dto.LoanDto;
 import com.envioemail.producerfila.model.entitys.LoanEntity;
 import com.envioemail.producerfila.repository.LoanRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collections;
+import java.util.List;
 
 
 @Log4j2
@@ -30,8 +34,8 @@ public class LoanValidationImpl implements LoanValidation {
 
 
     @Override
-    public Boolean execute(Loan loan) {
-        return insertNewLoan(loan);
+    public Boolean execute(LoanDto loanDto) {
+        return insertNewLoan(loanDto);
     }
 
 
@@ -56,9 +60,9 @@ public class LoanValidationImpl implements LoanValidation {
     }
 
     @Override
-    public LoanEntity findLoan(Integer userId, Integer bookId) {
+    public LoanEntity findLoanActive(Integer userId, Integer bookId) {
         try {
-            return loanRepository.findLoan(userId, bookId).orElse(null);
+            return loanRepository.findLoanActive(userId, bookId).orElse(null);
         } catch (Exception exception) {
             throw new LoanException(String.format(MSG_FAILURE_FIND, exception));
         }
@@ -74,6 +78,12 @@ public class LoanValidationImpl implements LoanValidation {
     }
 
     @Override
+    public List<LoanEntity> findAllLoansByUser(Integer userId){
+        final List<LoanEntity> loanEntities = loanRepository.findAllLoan(userId);
+        return CollectionUtils.isEmpty(loanEntities) ? Collections.emptyList() : loanEntities;
+    }
+
+    @Override
     public Boolean closeLoan(Integer loanId) {
         try {
             return loanRepository.closeLoan(loanId) == 1;
@@ -84,9 +94,9 @@ public class LoanValidationImpl implements LoanValidation {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public Boolean insertNewLoan(Loan loan) {
+    public Boolean insertNewLoan(LoanDto loanDto) {
         try {
-            loanRepository.save(LoanEntity.of(loan));
+            loanRepository.save(LoanEntity.of(loanDto));
             return true;
         } catch (Exception exception) {
             log.error(String.format(MSG_FAILURE_INSERT, exception));

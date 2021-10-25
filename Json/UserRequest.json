@@ -1,0 +1,33 @@
+{
+  "userID": 1,
+  "userSituation": true,
+  "user": [
+    {
+      "id": 1,
+      "firstName": "Romulo",
+      "lastname": "Da Conceição Da Silva",
+      "email": "romulo200944@gmail.com",
+      "birthDate": "1995-12-19",
+      "visitedAt": "2018-10-21T07:34:09",
+      "phone": "11962949140",
+      "loans": [
+        {
+          "bookId": 1,
+          "usersId": 1,
+          "dateOfLoans": "2021-10-22T07:34:09",
+          "expirationDate": "2021-11-02T07:34:09",
+          "expiration": "0",
+          "activeLoan": "1"
+        },
+        {
+          "bookId": 1,
+          "usersId": 1,
+          "dateOfLoans": "2021-10-22T07:34:09",
+          "expirationDate": "2021-11-02T07:34:09",
+          "expiration": "0",
+          "activeLoan": "1"
+        }
+      ]
+    }
+  ]
+}

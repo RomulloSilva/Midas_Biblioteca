@@ -1,7 +1,7 @@
 package com.envioemail.producerfila.model.entitys;
 
 
-import com.envioemail.producerfila.model.dto.Loan;
+import com.envioemail.producerfila.model.dto.LoanDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,14 +41,14 @@ public class LoanEntity implements Serializable {
     @Column(name = "active_loan", nullable = false)
     private String activeLoan;
 
-    public static LoanEntity of(Loan loan) {
+    public static LoanEntity of(LoanDto loanDto) {
         return LoanEntity.builder()
-                .bookId(loan.getBookId())
-                .usersId(loan.getUsersId())
-                .dateOfLoans(loan.getDateOfLoans())
-                .expirationDate(loan.getExpirationDate())
-                .expiration(loan.getExpiration())
-                .activeLoan(loan.getActiveLoan())
+                .bookId(loanDto.getBookId())
+                .usersId(loanDto.getUsersId())
+                .dateOfLoans(loanDto.getDateOfLoans())
+                .expirationDate(loanDto.getExpirationDate())
+                .expiration(loanDto.getExpiration())
+                .activeLoan(loanDto.getActiveLoan())
                 .build();
     }
 

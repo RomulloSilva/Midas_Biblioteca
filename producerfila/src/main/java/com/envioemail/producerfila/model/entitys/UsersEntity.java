@@ -1,6 +1,6 @@
 package com.envioemail.producerfila.model.entitys;
 
-import com.envioemail.producerfila.model.dto.User;
+import com.envioemail.producerfila.model.dto.UserDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,14 +41,14 @@ public class UsersEntity implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    public static UsersEntity of(User user) {
+    public static UsersEntity of(UserDto userDto) {
         return UsersEntity.builder()
-                .firstName(user.getFirstName())
-                .lastname(user.getLastname())
-                .email(user.getEmail())
-                .birthDate(user.getBirthDate())
+                .firstName(userDto.getFirstName())
+                .lastname(userDto.getLastname())
+                .email(userDto.getEmail())
+                .birthDate(userDto.getBirthDate())
                 .visitedAt(LocalDateTime.now())
-                .phone(user.getPhone())
+                .phone(userDto.getPhone())
                 .build();
     }
 }

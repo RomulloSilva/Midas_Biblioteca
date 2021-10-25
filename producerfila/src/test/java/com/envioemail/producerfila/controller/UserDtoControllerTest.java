@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-public class UserControllerTest {
+public class UserDtoControllerTest {
 
     private final UsersEntity usersEntityMock = UsersEntityMock.getUserMock();
     private final Integer userId = 1;
