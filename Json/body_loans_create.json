@@ -1,0 +1,12 @@
+{
+  "loansDto": [
+    {
+      "bookId": "2",
+      "usersId": "3",
+      "dateOfLoans": "2021-10-31T07:34:09",
+      "expirationDate": null,
+      "expiration": "0",
+      "activeLoan": "1"
+    }
+  ]
+}

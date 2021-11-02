@@ -1,0 +1,9 @@
+{
+    "bookId": 1,
+    "availableQuantity": 10,
+    "ratedr": "1",
+    "borrowedQuantity": 2,
+    "reservedQuantity": 0,
+    "quantityAvailableForLoan": 8,
+    "availableOnDate": "2018-10-21T07:34:09"
+}

@@ -1,0 +1,50 @@
+{
+    "data": {
+        "userID": 1,
+        "userSituation": true,
+        "user": [
+            {
+                "url": "http://localhost:8080/midasBiblioteca/user/1/loans",
+                "method": "GET",
+                "object": {
+                    "id": 1,
+                    "firstName": "Romulo",
+                    "lastname": "Da Conceição Da Silva",
+                    "email": "romulo200944@gmail.com",
+                    "birthDate": "1995-12-19",
+                    "visitedAt": "2018-10-21T07:34:09",
+                    "phone": "11962949140",
+                    "loans": [
+                        {
+                            "loansId": 1,
+                            "bookId": 1,
+                            "usersId": 1,
+                            "dateOfLoans": "2019-10-21T07:34:09",
+                            "expirationDate": "2019-10-31T07:34:09",
+                            "expiration": "0",
+                            "activeLoan": "0"
+                        },
+                        {
+                            "loansId": 3,
+                            "bookId": 1,
+                            "usersId": 1,
+                            "dateOfLoans": "2021-10-22T07:34:09",
+                            "expirationDate": "2021-11-02T07:34:09",
+                            "expiration": "0",
+                            "activeLoan": "0"
+                        },
+                        {
+                            "loansId": 4,
+                            "bookId": 1,
+                            "usersId": 1,
+                            "dateOfLoans": "2021-10-24T20:45:07",
+                            "expirationDate": "2021-11-08T20:45:07",
+                            "expiration": "0",
+                            "activeLoan": "1"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
