@@ -20,10 +20,10 @@ import java.util.List;
 @Component
 public class LoanValidationImpl implements LoanValidation {
 
-    private static String MSG_FAILURE_INSERT = "Loan Insertion Failed: %s";
-    private static String MSG_FAILURE_FIND = "Loan Update Failed: %s";
-    private static String MSG_FAILURE_CLOSE = "Loan Close Failed: %s";
-    private static String MSG_FAILURE_FIND_ID = "Loan Find Id Failed: %s";
+    private static final String MSG_FAILURE_INSERT = "Loan Insertion Failed: %s";
+    private static final String MSG_FAILURE_FIND = "Loan Update Failed: %s";
+    private static final String MSG_FAILURE_CLOSE = "Loan Close Failed: %s";
+    private static final String MSG_FAILURE_FIND_ID = "Loan Find Id Failed: %s";
 
     private final LoanRepository loanRepository;
 
@@ -91,6 +91,16 @@ public class LoanValidationImpl implements LoanValidation {
             return loanRepository.closeLoan(loanId) == 1;
         } catch (Exception exception) {
             throw new LoanException(String.format(MSG_FAILURE_CLOSE, exception));
+        }
+    }
+
+
+    @Override
+    public LoanEntity fingLoanById(Integer loanId){
+        try{
+            return loanRepository.findLoanById(loanId).orElse(null);
+        } catch (Exception exception) {
+            throw new LoanException(String.format(MSG_FAILURE_FIND_ID, exception));
         }
     }
 

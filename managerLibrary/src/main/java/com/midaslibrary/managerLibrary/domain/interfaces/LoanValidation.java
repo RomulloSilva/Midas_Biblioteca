@@ -23,4 +23,6 @@ public interface LoanValidation {
     LoanEntity findLoanActive(Integer userId, Integer bookId);
 
     List<LoanEntity> findAllLoansByUser(Integer userId);
+
+    LoanEntity fingLoanById(Integer loanId);
 }

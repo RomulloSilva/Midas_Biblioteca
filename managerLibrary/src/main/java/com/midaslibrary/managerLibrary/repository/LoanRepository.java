@@ -71,4 +71,16 @@ public interface LoanRepository extends JpaRepository<LoanEntity, String> {
             "SET active_loan = '0' " +
             "WHERE loans_id = :loans_id", nativeQuery = true)
     Integer closeLoan(@Param("loans_id") Integer loanId);
+
+
+    @Query(value = "SELECT L.loans_id," +
+            "L.book_id," +
+            "L.users_id," +
+            "L.date_of_loan, " +
+            "L.expiration_date, " +
+            "L.expired, " +
+            "L.active_loan " +
+            "FROM loans L " +
+            "WHERE L.loans_id = :loans_id", nativeQuery = true)
+    Optional<LoanEntity> findLoanById(@Param("loans_id") Integer loanId);
 }
