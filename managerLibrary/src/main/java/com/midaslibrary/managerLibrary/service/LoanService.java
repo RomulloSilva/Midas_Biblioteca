@@ -37,7 +37,7 @@ public class LoanService {
     public void confirmsTheLoan(LoanDto loanDto) {
         try {
             loanValidation.execute(loanDto);
-            bookPropertieService.updateBookPropertie(loanDto.getBookId());
+            bookPropertieService.updateBookPropertiesQuantityBorrowed(loanDto.getBookId());
         } catch (Exception exception) {
             throw new LoanException(MSG_FAILURE + exception);
         }
@@ -75,6 +75,7 @@ public class LoanService {
             loanEntity = loanValidation.findLoanActive(userId, bookId);
             if (nonNull(loanEntity)) {
                 if (Boolean.TRUE.equals(loanValidation.closeLoan(loanEntity.getLoansId()))) {
+                    bookPropertieService.updateBookPropertieQuantityAvaliable(loanEntity.getBookId());
                     loanEntity1 = loanValidation.fingLoanById(loanEntity.getLoansId());
                 }
             } else {

@@ -34,4 +34,11 @@ public interface BookPropertiesRepository extends JpaRepository<BookPropertiesEn
             "borrowed_quantity = borrowed_quantity + 1 " +
             "WHERE book_id = :book_id", nativeQuery = true)
     void updateQuantityAvailable(@Param("book_id") Integer bookId);
+
+    @Modifying
+    @Query(value = "UPDATE book_properties " +
+            "SET quantity_available_for_loan = quantity_available_for_loan + 1, " +
+            "borrowed_quantity = borrowed_quantity - 1 " +
+            "WHERE book_id = :book_id", nativeQuery = true)
+    void quantityAvailable(@Param("book_id") Integer bookId);
 }

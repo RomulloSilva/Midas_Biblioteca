@@ -53,10 +53,19 @@ public class BookPropertiesValidationsImpl implements BookPropertiesValidations 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean updateBookQuantityAvailable(Integer bookId) {
+    public void updateBookQuantityAvailable(Integer bookId) {
         try {
             bookPropertiesRepository.updateQuantityAvailable(bookId);
-            return true;
+        } catch (Exception exception) {
+            throw new BookPropertiesException("Unable to update book properties: " + exception);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void bookQuantityAvailable(Integer bookId) {
+        try {
+            bookPropertiesRepository.quantityAvailable(bookId);
         } catch (Exception exception) {
             throw new BookPropertiesException("Unable to update book properties: " + exception);
         }

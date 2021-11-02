@@ -14,5 +14,7 @@ public interface BookPropertiesValidations {
 
     Integer availableBook(Integer bookId);
 
-    Boolean updateBookQuantityAvailable(Integer bookId);
+    void updateBookQuantityAvailable(Integer bookId);
+
+    void bookQuantityAvailable(Integer bookId);
 }

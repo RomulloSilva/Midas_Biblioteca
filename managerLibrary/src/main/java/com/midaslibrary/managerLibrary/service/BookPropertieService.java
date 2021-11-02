@@ -28,7 +28,11 @@ public class BookPropertieService {
         return bookPropertiesValidations.insertProperties(bookProperties);
     }
 
-    public Boolean updateBookPropertie(Integer bookId) {
-        return bookPropertiesValidations.updateBookQuantityAvailable(bookId);
+    public void updateBookPropertiesQuantityBorrowed(Integer bookId) {
+        bookPropertiesValidations.updateBookQuantityAvailable(bookId);
+    }
+
+    public void updateBookPropertieQuantityAvaliable(Integer bookId) {
+        bookPropertiesValidations.bookQuantityAvailable(bookId);
     }
 }
