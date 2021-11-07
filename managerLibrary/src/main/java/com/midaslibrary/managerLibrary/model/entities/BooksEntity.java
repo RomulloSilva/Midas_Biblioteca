@@ -54,6 +54,9 @@ public class BooksEntity implements Serializable {
     @Column(name = "publishing_company", nullable = false)
     private String publishingCompany;
 
+    @Column(name = "image_key")
+    private String imageKey;
+
     public static BooksEntity of(Book book) {
         return BooksEntity.builder()
                 .bookTitle(book.getBookTitle())

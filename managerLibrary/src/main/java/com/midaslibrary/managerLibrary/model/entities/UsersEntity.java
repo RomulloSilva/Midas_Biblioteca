@@ -42,6 +42,9 @@ public class UsersEntity implements Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "image_key")
+    private String imageKey;
+
     public static UsersEntity of(UserDto userDto) {
         return UsersEntity.builder()
                 .firstName(userDto.getFirstName())

@@ -1,6 +1,7 @@
 package com.midaslibrary.managerLibrary.controller;
 
 
+import com.midaslibrary.managerLibrary.config.aws.s3.S3ClientTransferManagerService;
 import com.midaslibrary.managerLibrary.model.dto.UserDto;
 import com.midaslibrary.managerLibrary.model.dto.adapter.Data;
 import com.midaslibrary.managerLibrary.model.entities.UsersEntity;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 import static java.util.Objects.nonNull;
 
@@ -21,13 +24,15 @@ import static java.util.Objects.nonNull;
 public class UserController {
 
     private final UserService userService;
+    private final S3ClientTransferManagerService s3ClientTransferManagerService;
 
     private static final String MESSAGE_FAILURE_POST = "Failure to save book.";
 
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, S3ClientTransferManagerService s3ClientTransferManagerService) {
         this.userService = userService;
+        this.s3ClientTransferManagerService = s3ClientTransferManagerService;
     }
 
 
@@ -60,5 +65,16 @@ public class UserController {
             return ResponseEntity.ok(new Data<UserDto>(userDto));
         }
         return new ResponseEntity<>(MESSAGE_FAILURE_POST, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/user-picture/{id}")
+    public ResponseEntity<String> upload(@PathVariable("id") Integer userId, @RequestParam(name = "archive") MultipartFile multiPartFile) {
+        URI uri;
+        try {
+            uri = s3ClientTransferManagerService.uploadPictureUser(userId, multiPartFile);
+            return ResponseEntity.created(uri).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failure in save picture of user");
+        }
     }
 }

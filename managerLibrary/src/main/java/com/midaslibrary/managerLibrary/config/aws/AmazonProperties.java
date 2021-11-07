@@ -1,6 +1,7 @@
 package com.midaslibrary.managerLibrary.config.aws;
 
 abstract class AmazonProperties {
+
     private final String region;
     private final int connectionTimeout;
     private final int errorRetry;

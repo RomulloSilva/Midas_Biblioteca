@@ -41,6 +41,27 @@ public class UsersValidationsImpl implements UsersValidations {
         }
     }
 
+    @Override
+    public String getUserFirstName(Integer userId){
+        try{
+            return usersRepository.getUserName(userId).orElse(null);
+        }catch (Exception exception){
+            log.error("Failed to find user first name: " + exception);
+            throw new UserException("Failed to find user first name: " + exception);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insertImageKey(String imageKey, Integer userId){
+        try {
+            usersRepository.setImageKey(userId, imageKey);
+            return true;
+        } catch (Exception exception) {
+            throw new UserException("Failed to save a imageKey: " + exception);
+        }
+    }
+
 
     public UsersEntity getUserById(Integer userId) {
 

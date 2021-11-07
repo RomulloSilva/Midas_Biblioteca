@@ -20,8 +20,15 @@ public interface BooksRepository extends JpaRepository<BooksEntity, String> {
             "B.isbn, " +
             "B.number_of_pages, " +
             "B.country, " +
-            "B.publishing_company " +
+            "B.publishing_company, " +
+            "B.image_key " +
             "FROM books B " +
             "WHERE B.book_id = :book_id", nativeQuery = true)
     BooksEntity getBookById(@Param("book_id") Integer bookId);
+
+
+    @Query(value = "SELECT B.book_title " +
+            "FROM books B " +
+            "WHERE B.book_id = :book_id", nativeQuery = true)
+    String getBookTitle(@Param("book_id") Integer bookId);
 }

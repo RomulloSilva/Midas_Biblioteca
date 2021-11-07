@@ -12,4 +12,8 @@ public interface UsersValidations {
 
     Boolean insertUser(UserDto userDto);
 
+    String getUserFirstName(Integer userId);
+
+    Boolean insertImageKey(String imageKey, Integer userId);
+
 }

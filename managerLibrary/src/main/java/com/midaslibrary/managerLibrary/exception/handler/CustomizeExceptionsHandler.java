@@ -148,4 +148,10 @@ public class CustomizeExceptionsHandler extends ResponseEntityExceptionHandler i
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
+
+    @ExceptionHandler(S3Exception.class)
+    public ResponseEntity<StandardError> failureInS3(S3Exception e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 }
