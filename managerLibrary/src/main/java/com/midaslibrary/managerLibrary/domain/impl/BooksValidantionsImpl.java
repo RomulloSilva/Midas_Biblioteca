@@ -3,6 +3,7 @@ package com.midaslibrary.managerLibrary.domain.impl;
 
 import com.midaslibrary.managerLibrary.domain.interfaces.BooksValidantions;
 import com.midaslibrary.managerLibrary.exception.BookException;
+import com.midaslibrary.managerLibrary.exception.UserException;
 import com.midaslibrary.managerLibrary.model.dto.Book;
 import com.midaslibrary.managerLibrary.model.entities.BooksEntity;
 import com.midaslibrary.managerLibrary.repository.BooksRepository;
@@ -37,6 +38,27 @@ public class BooksValidantionsImpl implements BooksValidantions {
             throw new BookException("Unable to save book" + exception);
         }
 
+    }
+
+    @Override
+    public String getBookTitle(Integer bookId){
+        try{
+            return booksRepository.getBookTitle(bookId).orElse(null);
+        }catch (Exception exception){
+            log.error("Failed to find user first name: " + exception);
+            throw new UserException("Failed to find user first name: " + exception);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insertImageKey(String imageKey, Integer bookId){
+        try {
+            booksRepository.setImageKey(bookId, imageKey);
+            return true;
+        } catch (Exception exception) {
+            throw new UserException("Failed to save a imageKey: " + exception);
+        }
     }
 
     public BooksEntity getBookById(Integer bookId) {

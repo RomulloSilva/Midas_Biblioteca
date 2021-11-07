@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import com.midaslibrary.managerLibrary.config.aws.AmazonS3Configuration;
 import com.midaslibrary.managerLibrary.exception.S3Exception;
+import com.midaslibrary.managerLibrary.service.BookService;
 import com.midaslibrary.managerLibrary.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,16 @@ public class S3ClientTransferManagerService {
 
     private static final String MSG_ERROR_UPLOAD = "Failure in upload picture: %";
     private final UserService userService;
+    private final BookService bookService;
 
     private final AmazonS3Configuration s3Configuration;
 
     @Autowired
     public S3ClientTransferManagerService(UserService userService,
+                                          BookService bookService,
                                           AmazonS3Configuration s3Configuration) {
         this.userService = userService;
+        this.bookService = bookService;
         this.s3Configuration = s3Configuration;
     }
 
@@ -59,6 +63,24 @@ public class S3ClientTransferManagerService {
         }
     }
 
+    public URI uploadPictureBookCover(Integer bookId, MultipartFile multipartFile) {
+        URI uri;
+        try {
+            String bookTitle = bookService.getBookTitle(bookId);
+            String archiveName = this.folderBook + bookId + "/" + bookTitle;
+            InputStream input = multipartFile.getInputStream();
+            String archiveType = multipartFile.getContentType();
+            uri = uploadPicture(archiveName, input, archiveType);
+            bookService.setImageKey(archiveName, bookId);
+            return uri;
+
+        } catch (Exception e) {
+            log.error("Failure in save picture of book cover");
+            throw new S3Exception(String.format(MSG_ERROR_UPLOAD, e));
+        }
+    }
+
+
     public URI uploadPicture(String archiveName, InputStream input, String archiveType) {
 
         try {
@@ -69,7 +91,7 @@ public class S3ClientTransferManagerService {
             meta.setContentType(archiveType);
             meta.setContentLength(bytes.length);
             PutObjectRequest putObjectRequest = new PutObjectRequest(this.bucketName, archiveName, byteArrayInputStream, meta);
-            s3Configuration.amazonS3Client().putObject(putObjectRequest);//putObject(this.bucketName, archiveName, is, meta);
+            s3Configuration.amazonS3Client().putObject(putObjectRequest);
             log.info("Uploading complete.");
             return s3Configuration.amazonS3Client().getUrl(this.bucketName, archiveName).toURI();
 

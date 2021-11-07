@@ -1,25 +1,9 @@
 package com.midaslibrary.managerLibrary.controller;
 
 
-import com.midaslibrary.managerLibrary.mocks.BooksEntityMock;
-import com.midaslibrary.managerLibrary.model.entities.BooksEntity;
-import com.midaslibrary.managerLibrary.service.BookService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.doReturn;
-
-
 public class BookControllerTest {
 
+   /*
     private final BooksEntity booksEntityMock = BooksEntityMock.getBookMock();
     private final Integer bookId = 1;
 
@@ -58,5 +42,6 @@ public class BookControllerTest {
         assertThat(bookController.getBookById(bookId).equals(ResponseEntity.noContent()));
 
     }
+    */
 
 }

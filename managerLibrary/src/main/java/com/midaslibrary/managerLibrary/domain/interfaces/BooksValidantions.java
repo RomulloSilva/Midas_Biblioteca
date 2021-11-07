@@ -11,4 +11,8 @@ public interface BooksValidantions {
     BooksEntity execute(Integer bookId);
 
     Boolean insertBook(Book book);
+
+    Boolean insertImageKey(String imageKey, Integer bookId);
+
+    String getBookTitle(Integer bookId);
 }

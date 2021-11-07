@@ -1,6 +1,7 @@
 package com.midaslibrary.managerLibrary.controller;
 
 
+import com.midaslibrary.managerLibrary.config.aws.s3.S3ClientTransferManagerService;
 import com.midaslibrary.managerLibrary.model.dto.Book;
 import com.midaslibrary.managerLibrary.model.dto.BookProperties;
 import com.midaslibrary.managerLibrary.model.dto.adapter.Data;
@@ -11,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 
 import static java.util.Objects.nonNull;
 
@@ -21,12 +24,15 @@ import static java.util.Objects.nonNull;
 public class BookController {
 
     private final BookService bookService;
+    private final S3ClientTransferManagerService s3ClientTransferManagerService;
 
     private static final String MESSAGE_FAILURE_POST = "Failure to save book.";
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService,
+                          S3ClientTransferManagerService s3ClientTransferManagerService) {
         this.bookService = bookService;
+        this.s3ClientTransferManagerService = s3ClientTransferManagerService;
     }
 
     @GetMapping("/book/{id}")
@@ -66,6 +72,18 @@ public class BookController {
             return ResponseEntity.ok(new Data<BookProperties>(bookProperties));
         }
         return new ResponseEntity<>(MESSAGE_FAILURE_POST, HttpStatus.BAD_REQUEST);
+    }
+
+
+    @PostMapping("/book-cover/{id}")
+    public ResponseEntity<String> upload(@PathVariable("id") Integer bookId, @RequestParam(name = "archive") MultipartFile multiPartFile) {
+        URI uri;
+        try {
+            uri = s3ClientTransferManagerService.uploadPictureBookCover(bookId, multiPartFile);
+            return ResponseEntity.created(uri).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failure in save picture of user");
+        }
     }
 
 }
